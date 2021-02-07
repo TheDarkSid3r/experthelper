@@ -78,11 +78,13 @@ const ExpertHelper = class {
                 var s = h.split("=");
                 params[decodeURIComponent(s[0])] = decodeURIComponent(s[1]);
             });
+            if (params.name) {
+                this.headerBar.append($("<div/>").addClass("header-bar-name").text(params.name));
+            }
             if (params.manuals) {
                 var manuals = params.manuals.split(",").map((m) => m.trim());
                 if (!manuals.length) return;
                 this.addManuals(manuals);
-                if (manuals.length == 1) this.headerBar.hide();
             }
         });
     }
