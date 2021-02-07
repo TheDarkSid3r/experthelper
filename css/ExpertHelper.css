@@ -211,3 +211,131 @@ body {
         transform: translate(-50%, -50%) rotate(360deg);
     }
 }
+
+.manual-prompt-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    background-color: #000d;
+    padding: 20px;
+    overflow-y: auto;
+    text-align: center;
+}
+
+.manual-prompt-modal {
+    position: relative;
+    display: inline-block;
+    width: 700px;
+    max-width: 100%;
+    color: #fff;
+    margin-top: 200px;
+    font-size: 0;
+}
+
+.manual-prompt-modal-title {
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.manual-prompt-modal-instructions {
+    font-size: 22px;
+    padding: 10px 0 40px;
+}
+
+.manual-prompt-input {
+    width: 100%;
+    resize: none;
+    height: 40px;
+    font-family: "TrebuchetMS";
+    font-size: 30px;
+    padding: 5px;
+    border: 0;
+    outline: 0;
+}
+
+.manual-prompt-submit, .manual-prompt-cancel {
+    position: relative;
+    margin-top: 40px;
+    padding: 10px;
+    width: 150px;
+    background-color: #029;
+    color: #fff;
+    font-size: 30px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.manual-prompt-cancel {
+    margin-top: 10px;
+    font-size: 24px;
+    padding: 5px;
+}
+
+.manual-prompt-submit:hover, .manual-prompt-cancel:hover {
+    background-color: #006;
+}
+
+.manual-prompt-submit:active, .manual-prompt-cancel:active {
+    background-color: #fff;
+    color: #000;
+}
+
+.autofill-wrapper {
+    position: relative;
+    width: 500px;
+    max-width: 100%;
+    background-color: #fff;
+}
+
+.autofill-result {
+    width: 100%;
+    background-color: #fff;
+    color: #000;
+    text-align: left;
+    padding: 5px;
+}
+
+.autofill-result:nth-child(even) {
+    background-color: #eee;
+}
+
+.autofill-name {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.autofill-id {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.autofill-result.autofill-result-selected {
+    background-color: #029;
+    color: #fff;
+}
+
+.repo-loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background-color: #000d;
+    text-align: center;
+}
+
+.repo-loader-text {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 40px;
+    font-weight: 700;
+    padding: 0 40px;
+}
