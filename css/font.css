@@ -1,0 +1,32 @@
+@font-face {
+    src: url(../font/SpecialElite.ttf);
+    font-family: "SpecialElite";
+}
+
+@font-face {
+    font-family: "TrebuchetMS";
+    font-style: normal;
+    font-weight: 400;
+    src: url(../font/trebuc.ttf);
+}
+
+@font-face {
+    font-family: "TrebuchetMS";
+    font-style: normal;
+    font-weight: 700;
+    src: url(../font/trebucbd.ttf);
+}
+
+@font-face {
+    font-family: "TrebuchetMS";
+    font-style: italic;
+    font-weight: 400;
+    src: url(../font/trebucit.ttf);
+}
+
+@font-face {
+    font-family: "TrebuchetMS";
+    font-style: italic;
+    font-weight: 700;
+    src: url(../font/trebucbi.ttf);
+}

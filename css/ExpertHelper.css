@@ -1,0 +1,185 @@
+body {
+    margin: 0;
+    color: #000;
+    font-family: "TrebuchetMS";
+}
+
+* {
+    box-sizing: border-box;
+    line-height: 100%;
+}
+
+.wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-bar {
+    position: relative;
+    width: 100%;
+    text-align: left;
+    background-color: #252526;
+    z-index: 2;
+    border: 1px solid #222;
+    box-shadow: #222 0em 0em 0.6em;
+}
+
+.manual-area {
+    position: relative;
+    width: 100%;
+    flex-grow: 1;
+    background-image: url(../img/web-background.jpg);
+    z-index: 1;
+}
+
+.header-plus {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 40px;
+    font-size: 30px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.header-plus:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.header-plus.header-plus-error {
+    background-color: #f55;
+}
+
+.header-plus.header-plus-error:hover {
+    background-color: #f55a;
+}
+
+.manual-tab {
+    vertical-align: top;
+    position: relative;
+    display: inline-block;
+    width: auto;
+    height: 40px;
+    padding: 0 0 0 10px;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: #fff;
+}
+
+.manual-tab:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.manual-tab-name {
+    position: relative;
+    display: inline-block;
+    line-height: 40px;
+    font-size: 18px;
+    min-width: 50px;
+}
+
+.manual-tab-close {
+    position: relative;
+    display: inline-block;
+    font-size: 20px;
+    margin-left: 6px;
+    padding: 0 6px;
+    height: 100%;
+    vertical-align: top;
+    line-height: 40px;
+    cursor: pointer;
+}
+
+.manual-tab-close:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.manual-tab.manual-tab-selected {
+    color: #000;
+    background-color: #fff;
+    cursor: default;
+}
+
+.manual-tab.manual-tab-selected .manual-tab-close:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.manual-tab.manual-tab-error {
+    color: #fff;
+    background-color: #f55;
+    cursor: default;
+}
+
+.manual-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.manual-frame-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    z-index: 1;
+}
+
+.manual-frame-loader-back {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0008;
+    display: none;
+}
+
+.manual-frame-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    background-color: #000c;
+    border-radius: 20px;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.manual-frame-loader-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    border: 6px solid #fff;
+    border-radius: 50%;
+    border-top-color: #0000;
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
