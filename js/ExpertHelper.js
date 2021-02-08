@@ -30,15 +30,26 @@ const Manual = class {
         if (this.selected && !this.error) {
             this.tab.addClass("manual-tab-selected");
             if (!this.frame && !this.error) {
-                this.frame = $("<div/>").addClass("manual-frame").appendTo(this.helper.manualArea);
-                var loaderback = $("<div/>").addClass("manual-frame-loader-back").appendTo(this.frame).fadeIn(200);
-                var loader = $("<div/>").addClass("manual-frame-loader").appendTo(this.frame);
-                $("<div/>").addClass("manual-frame-loader-spinner").appendTo(loader);
-                $("<iframe/>").addClass("manual-frame-frame").attr({ src: "https://ktane.timwi.de/HTML/" + encodeURIComponent(this.repo.FileName || this.repo.Name) + ".html" }).appendTo(this.frame).on("load", () => {
-                    console.log("Loaded %s page", this.id);
-                    loader.remove();
-                    loaderback.stop().fadeOut(200, () => loaderback.remove());
-                });
+                var createframe = () => {
+                    if (this.frame) this.frame.remove();
+                    this.frame = $("<div/>").addClass("manual-frame").appendTo(this.helper.manualArea);
+                    var loaderback = $("<div/>").addClass("manual-frame-loader-back").appendTo(this.frame).fadeIn(200);
+                    var loader = $("<div/>").addClass("manual-frame-loader").appendTo(this.frame);
+                    $("<div/>").addClass("manual-frame-loader-spinner").appendTo(loader);
+                    var didFirstLoad = false;
+                    var iframe = $("<iframe/>").addClass("manual-frame-frame").attr({ src: "https://ktane.timwi.de/HTML/" + encodeURIComponent(this.repo.FileName || this.repo.Name) + ".html" }).appendTo(this.frame).on("load", () => {
+                        if (didFirstLoad) {
+                            console.log(iframe[0].contentWindow.location.href);
+                            createframe();
+                            return;
+                        }
+                        didFirstLoad = true;
+                        console.log("Loaded %s page", this.id);
+                        loader.remove();
+                        loaderback.stop().fadeOut(200, () => loaderback.remove());
+                    }).on("error", () => createframe());
+                };
+                createframe();
             }
             if (this.frame) this.frame.show();
         } else {
