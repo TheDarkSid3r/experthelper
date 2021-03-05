@@ -70,9 +70,9 @@ const ExpertHelper = class {
             loaderText.html("Missing window hash");
             return;
         }
+        window.location.hash = "#";
         try {
             var hashData = JSON.parse(atob(hash));
-            window.location.hash = "#";
             $.getJSON("https://ktane.timwi.de/json/raw", (data) => {
                 this.repository = data.KtaneModules;
                 console.log("Fetched %i entries from repository", this.repository.length);
@@ -81,10 +81,12 @@ const ExpertHelper = class {
             }).catch((e) => {
                 console.error(e);
                 loaderText.html("Failed to fetch repository data");
+                window.location.hash = "#" + hash;
             });
         } catch (e) {
             // malformed JSON, a likely result of the hash not being a valid base64 string
             loaderText.html("Invalid URL hash");
+            window.location.hash = "#" + hash;
         }
     }
 
