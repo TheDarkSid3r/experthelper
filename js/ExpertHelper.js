@@ -70,7 +70,7 @@ const ExpertHelper = class {
             loaderText.html("Missing URL hash");
             return;
         }
-        window.location.hash = "#";
+        //window.location.hash = "#";
         try {
             var hashData = objectOverride || JSON.parse(atob(hash));
             $.getJSON("https://ktane.timwi.de/json/raw", (data) => {
@@ -81,12 +81,12 @@ const ExpertHelper = class {
             }).catch((e) => {
                 console.error(e);
                 loaderText.html("Failed to fetch repository data");
-                window.location.hash = "#" + hash;
+                //window.location.hash = "#" + hash;
             });
         } catch (e) {
             // malformed JSON, a likely result of the hash not being a valid base64 string
             loaderText.html("Invalid URL hash");
-            window.location.hash = "#" + hash;
+            //window.location.hash = "#" + hash;
         }
     }
 
