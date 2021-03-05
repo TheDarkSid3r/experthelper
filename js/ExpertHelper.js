@@ -67,7 +67,7 @@ const ExpertHelper = class {
         var loaderText = $("<div/>").addClass("repo-loader-text").html("Loading repository data\u2026").appendTo(repoloader);
         var hash = window.location.hash.slice(1);
         if (!hash) {
-            loaderText.html("Missing window hash");
+            loaderText.html("Missing URL hash");
             return;
         }
         window.location.hash = "#";
