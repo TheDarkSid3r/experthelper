@@ -237,12 +237,12 @@ body {
 .widget-timer-back, .widget-timer-front {
     position: absolute;
     left: 0;
-    padding-left: 2px;
-    top: -3px;
+    padding-left: 4px;
+    top: -1px;
     width: 100%;
     font-family: "Digits";
-    font-size: 32px;
-    transform: scaleY(1.33);
+    font-size: 30px;
+    transform: scaleY(1.38);
 }
 
 .widget-timer-back {
