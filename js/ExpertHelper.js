@@ -7,9 +7,7 @@ const Manual = class {
         this.helper = helper;
         this.repo = this.helper.repository.find(m => m.ModuleID == this.id);
         if (!this.repo) this.error = true;
-        if (this.error) this.close.on("mouseenter", () => this.close.html("\u00d7")).on("mouseleave", () => this.close.html("\u01c3"));
-        this.tab = $("<div/>").addClass("manual-tab").append($("<div/>").addClass("manual-tab-name").text(this.error ? this.id : this.repo.Name)).on("click", () => this.helper.selectManual(this.id));
-        if (!this.error) this.tab.attr({ title: this.repo.Name + " (" + this.id + ")" });
+        this.tab = $("<div/>").addClass("manual-tab").append($("<div/>").addClass("manual-tab-name").text(this.error ? this.id : this.repo.Name)).attr({ title: this.error ? "Could not find ID \"" + this.id + "\" on repository" : this.repo.Name + " (" + this.id + ")" }).on("click", () => this.helper.selectManual(this.id));
         if (this.error) this.tab.addClass("manual-tab-error");
         this.selected = false;
     }
@@ -27,7 +25,7 @@ const Manual = class {
                     var loader = $("<div/>").addClass("manual-frame-loader").appendTo(this.frame);
                     $("<div/>").addClass("manual-frame-loader-spinner").appendTo(loader);
                     var didFirstLoad = false;
-                    var iframe = $("<iframe/>").addClass("manual-frame-frame").attr({ src: "https://ktane.timwi.de/HTML/" + encodeURIComponent(this.repo.FileName || this.repo.Name) + ".html" }).appendTo(this.frame).on("load", () => {
+                    $("<iframe/>").addClass("manual-frame-frame").attr({ src: "https://ktane.timwi.de/HTML/" + encodeURIComponent(this.repo.FileName || this.repo.Name) + ".html" }).appendTo(this.frame).on("load", () => {
                         if (didFirstLoad) {
                             createframe();
                             return;
@@ -65,14 +63,16 @@ const ExpertHelper = class {
         this.repository = null;
         var repoloader = $("<div/>").addClass("repo-loader").appendTo(document.body);
         var loaderText = $("<div/>").addClass("repo-loader-text").html("Loading repository data\u2026").appendTo(repoloader);
+        //var objectOverride = { mission: "freeplay", name: "Free Play", manuals: [{ ID: "BigButton", ManualType: 0 }, { ID: "Keypad", ManualType: 0 }, { ID: "WhosOnFirst", ManualType: 0 }, { ID: "Memory", ManualType: 0 }, { ID: "Simon", ManualType: 0 }, { ID: "NeedyVentGas", ManualType: 1 }, { ID: "Morse", ManualType: 0 }, { ID: "WireSequence", ManualType: 0 }, { ID: "Venn", ManualType: 0 }], totalTime: 30.0, widgets: [{ Type: "Serial", Number: "1A2TJ0" }, { Type: "Port", Ports: ["Parallel"] }, { Type: "Port", Ports: ["Parallel"] }, { Type: "Port", Ports: ["DVI", "RJ45", "StereoRCA"] }, { Type: "Port", Ports: ["DVI", "PS2"] }, { Type: "Indicator", Label: "MSA", On: true }] };
+        var objectOverride = false;
         var hash = window.location.hash.slice(1);
-        if (!hash) {
+        if (!hash && !objectOverride) {
             loaderText.html("Missing URL hash");
             return;
         }
         window.location.hash = "#";
         try {
-            var hashData = JSON.parse(atob(hash));
+            var hashData = objectOverride || JSON.parse(atob(hash));
             $.getJSON("https://ktane.timwi.de/json/raw", (data) => {
                 this.repository = data.KtaneModules;
                 console.log("Fetched %i entries from repository", this.repository.length);
@@ -93,12 +93,41 @@ const ExpertHelper = class {
     init(data) {
         console.log("Initializing with provided data:", data);
         //this.headerBar.append($("<div/>").addClass("header-bar-name").text(data.name.trim()));
+        /* for (var i = 0; i < 20; i++) {
+            data.manuals.push({ ID: this.repository[Math.floor(Math.random() * this.repository.length)].ModuleID, ManualType: Math.random() > 0.7 ? 0 : 1 });
+        } */
+        console.log(data.manuals);
+        var hasTypeHeader = [];
+        var typeHeaderNames = ["Solvables", "Needys", "Widgets", "Holdables"];
+        var manualTypeExclusivity = [];
+        data.manuals.forEach((m) => {
+            if (!manualTypeExclusivity.includes(m.ManualType)) manualTypeExclusivity.push(m.ManualType);
+        });
+        data.manuals.sort((a, b) => a.ManualType - b.ManualType);
         data.manuals.forEach((m) => {
             if (m.ManualType > 1) return;
+            if (!hasTypeHeader.includes(m.ManualType) && manualTypeExclusivity.length > 1) {
+                $("<div/>").addClass("header-bar-name").html(typeHeaderNames[m.ManualType]).appendTo(this.headerBar);
+                hasTypeHeader.push(m.ManualType);
+            }
             this.addManual(m.ID);
         });
+        var erroredManuals = this.manuals.filter((m) => m.error);
+        if (erroredManuals.length) {
+            var button = $("<div/>").addClass("header-error-button").attr({ title: "Remove errored manuals (" + erroredManuals.length + ")" }).html("\u01c3").appendTo(this.headerBar).on("click", () => {
+                erroredManuals.forEach((m) => this.removeManual(m.id));
+                button.remove();
+            });
+        }
         this.addWidget({ Type: "Timer", Time: data.totalTime });
         data.widgets.forEach((w) => this.addWidget(w));
+    }
+
+    removeManual(id) {
+        var index = this.getManualIndex(id);
+        this.manuals[index].remove();
+        this.manuals.splice(index, 1);
+        console.log("Removed %s", id);
     }
 
     addManual(id) {
