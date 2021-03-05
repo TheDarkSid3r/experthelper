@@ -72,6 +72,7 @@ const ExpertHelper = class {
         }
         try {
             var hashData = JSON.parse(atob(hash));
+            window.location.hash = "#";
             $.getJSON("https://ktane.timwi.de/json/raw", (data) => {
                 this.repository = data.KtaneModules;
                 console.log("Fetched %i entries from repository", this.repository.length);
