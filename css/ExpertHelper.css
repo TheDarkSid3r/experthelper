@@ -7,6 +7,12 @@ body {
 * {
     box-sizing: border-box;
     line-height: 100%;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .wrapper {
@@ -21,18 +27,14 @@ body {
 
 .header-bar {
     position: relative;
+    display: flex;
+    flex-wrap: wrap;
     width: 100%;
     text-align: left;
     background-color: #252526;
-    z-index: 2;
+    z-index: 3;
     border: 1px solid #222;
     box-shadow: #222 0em 0em 0.6em;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 .manual-area {
@@ -55,7 +57,7 @@ body {
     background-color: #fff3;
 }
 
-.header-plus {
+.header-error-button {
     position: relative;
     display: inline-block;
     width: 40px;
@@ -65,34 +67,22 @@ body {
     line-height: 40px;
     font-size: 30px;
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: #f55;
     color: #fff;
 }
 
-.header-plus:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
-.header-plus:active {
-    color: #000;
-    background-color: #fff;
-}
-
-.header-plus.header-plus-error {
-    background-color: #f55;
-}
-
-.header-plus.header-plus-error:hover {
+.header-error-button:hover {
     background-color: #f55a;
 }
 
 .manual-tab {
     vertical-align: top;
     position: relative;
-    display: inline-block;
+    flex-grow: 1;
     width: auto;
     height: 40px;
-    padding: 0 0 0 10px;
+    padding: 0 10px;
+    margin: 0 1px;
     text-align: center;
     white-space: nowrap;
     cursor: pointer;
@@ -115,22 +105,6 @@ body {
     line-height: 40px;
     font-size: 18px;
     min-width: 50px;
-}
-
-.manual-tab-close {
-    position: relative;
-    display: inline-block;
-    font-size: 20px;
-    margin-left: 6px;
-    padding: 0 6px;
-    height: 100%;
-    vertical-align: top;
-    line-height: 40px;
-    cursor: pointer;
-}
-
-.manual-tab-close:hover {
-    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .manual-tab.manual-tab-selected {
@@ -212,111 +186,6 @@ body {
     }
 }
 
-.manual-prompt-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 5;
-    background-color: #000d;
-    padding: 20px;
-    overflow-y: auto;
-    text-align: center;
-}
-
-.manual-prompt-modal {
-    position: relative;
-    display: inline-block;
-    width: 700px;
-    max-width: 100%;
-    color: #fff;
-    margin-top: 200px;
-    font-size: 0;
-}
-
-.manual-prompt-modal-title {
-    font-size: 40px;
-    font-weight: 700;
-}
-
-.manual-prompt-modal-instructions {
-    font-size: 22px;
-    padding: 10px 0 40px;
-}
-
-.manual-prompt-input {
-    width: 100%;
-    resize: none;
-    height: 40px;
-    font-family: "TrebuchetMS";
-    font-size: 30px;
-    padding: 5px;
-    border: 0;
-    outline: 0;
-}
-
-.manual-prompt-submit, .manual-prompt-cancel {
-    position: relative;
-    margin-top: 40px;
-    padding: 10px;
-    width: 150px;
-    background-color: #029;
-    color: #fff;
-    font-size: 30px;
-    display: inline-block;
-    cursor: pointer;
-}
-
-.manual-prompt-cancel {
-    margin-top: 10px;
-    font-size: 24px;
-    padding: 5px;
-}
-
-.manual-prompt-submit:hover, .manual-prompt-cancel:hover {
-    background-color: #006;
-}
-
-.manual-prompt-submit:active, .manual-prompt-cancel:active {
-    background-color: #fff;
-    color: #000;
-}
-
-.autofill-wrapper {
-    position: relative;
-    width: 500px;
-    max-width: 100%;
-    background-color: #fff;
-}
-
-.autofill-result {
-    width: 100%;
-    background-color: #fff;
-    color: #000;
-    text-align: left;
-    padding: 5px;
-}
-
-.autofill-result:nth-child(even) {
-    background-color: #eee;
-}
-
-.autofill-name {
-    font-size: 24px;
-    font-weight: 700;
-}
-
-.autofill-id {
-    font-size: 18px;
-    font-weight: 400;
-}
-
-.autofill-result.autofill-result-selected {
-    background-color: #029;
-    color: #fff;
-}
-
 .repo-loader {
     position: absolute;
     top: 0;
@@ -338,4 +207,106 @@ body {
     font-size: 40px;
     font-weight: 700;
     padding: 0 40px;
+}
+
+.footer-bar {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    background-color: #252526;
+    z-index: 2;
+    border: 1px solid #222;
+    box-shadow: #222 0em 0em 0.6em;
+}
+
+.widget {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 3px;
+}
+
+.widget-timer {
+    width: 111px;
+    height: 70px;
+    background-image: url(../img/timer.png);
+    background-size: 100% 100%;
+    margin-right: 30px;
+}
+
+.widget-timer-back, .widget-timer-front {
+    position: absolute;
+    left: 0;
+    padding-left: 2px;
+    top: -3px;
+    width: 100%;
+    font-family: "Digits";
+    font-size: 32px;
+    transform: scaleY(1.33);
+}
+
+.widget-timer-back {
+    z-index: 1;
+    color: #1e1e1e;
+}
+
+.widget-timer-front {
+    z-index: 2;
+    color: #f00;
+}
+
+.widget-serial {
+    width: 145px;
+    height: 70px;
+    background-image: url(../img/serial.png);
+    background-size: 100% 100%;
+    font-family: "AnonymousPro";
+    color: #000d;
+    font-size: 34px;
+    padding: 33px 0 0 2px;
+}
+
+.widget-battery {
+    width: 112px;
+    height: 63px;
+    background-size: 100% 100%;
+}
+
+.widget-battery-DoubleA {
+    background-image: url(../img/doublea.png);
+}
+
+.widget-battery-DCell {
+    background-image: url(../img/dcell.png);
+}
+
+.widget-port {
+    width: 145px;
+    height: 63px;
+    background-image: url(../img/portplate.png);
+    background-size: 100% 100%;
+}
+
+.widget-port-port {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-size: 100% 100%;
+}
+
+.widget-indicator {
+    width: 115px;
+    height: 50px;
+    background-image: url(../img/indicatoroff.png);
+    background-size: 100% 100%;
+    font-family: "OstrichSans";
+    color: #fffd;
+    font-size: 30px;
+    padding: 9px 0 0 38px;
+}
+
+.widget-indicator-lit {
+    background-image: url(../img/indicatoron.png);
 }
